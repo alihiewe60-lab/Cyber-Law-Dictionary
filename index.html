@@ -19,70 +19,66 @@
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--bg-light);
-            overflow: hidden;
+            color: var(--primary);
         }
 
         .page {
             display: none;
-            height: 100vh;
+            min-height: 100vh;
             width: 100%;
             padding: 40px 20px;
-            overflow-y: auto;
             animation: fadeIn 0.6s ease-in-out;
         }
 
         .page.active { display: flex; flex-direction: column; align-items: center; }
 
-        /* الصفحة الأولى مع صورة الخلفية الخافتة */
+        /* الصفحة الرئيسية - تنسيق متجاوب */
         #home-page {
             background: 
-                linear-gradient(rgba(10, 15, 30, 0.82), rgba(10, 15, 30, 0.82)), 
+                linear-gradient(rgba(10, 15, 30, 0.85), rgba(10, 15, 30, 0.85)), 
                 url('https://scontent.fmji4-1.fna.fbcdn.net/v/t39.30808-6/502621241_1253361386799012_3669026992604886747_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeHaa1roERjt0LinYBD6VDMtMKabf_2F10Qwppt__YXXRM2e5naVQJc4AFRTSkelHeeEqcCfb1dcYThEaRkTqvBE&_nc_ohc=43E4tCpDD9EQ7kNvwHC2a7J&_nc_oc=AdrMVRFipVMj7Urr7U9Gi4IVCVn239lgfEScdACLRNlx1ClNejt2FVYPjc4ePE0S39E&_nc_zt=23&_nc_ht=scontent.fmji4-1.fna&_nc_gid=muuJD6sp14jNq07rIm0eCQ&_nc_ss=7b2a8&oh=00_Af1J-D1h29oHasOKpWZHtryvmKfKBApMUOMeddLpzD1DCw&oe=69EF3D10'); 
-            
             background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-position: center top;
             color: white;
             justify-content: center;
             text-align: center;
-            min-height: 100vh;
         }
 
-        .hero-content h1 { 
-            font-size: clamp(2rem, 8vw, 3.8rem); 
-            color: var(--accent); 
-            margin-bottom: 15px; 
-            font-weight: 900;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        /* تعديلات اللابتوب */
+        @media (min-width: 1024px) {
+            #home-page { background-attachment: fixed; background-position: center center; }
+            .hero-content h1 { font-size: 4rem !important; }
         }
 
-        .hero-content p { 
-            font-size: 1.3rem; 
-            margin-bottom: 40px; 
-            opacity: 0.9;
-            line-height: 1.6;
+        /* تعديلات الهاتف */
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 2.2rem !important; }
+            .hero-btns { display: flex; flex-direction: column; width: 100%; align-items: center; }
+            .btn { width: 85% !important; margin: 8px 0 !important; }
         }
+
+        .hero-content h1 { font-weight: 900; color: var(--accent); margin-bottom: 15px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 35px; opacity: 0.9; line-height: 1.6; }
 
         .btn {
-            padding: 16px 45px;
+            padding: 16px 35px;
             border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.4s;
-            margin: 10px;
+            transition: 0.3s;
             border: none;
             font-family: inherit;
             font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
         }
         .btn-main { background: var(--accent); color: var(--primary); }
         .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
 
-        /* تنسيق القاموس */
-        #dictionary-page { background-color: var(--bg-light); }
-        .container { width: 100%; max-width: 800px; margin-top: 10px; }
-        
-        .search-box { position: relative; margin-bottom: 25px; }
+        /* القاموس */
+        .container { width: 100%; max-width: 800px; padding-bottom: 80px; }
+        .search-box { position: relative; margin-bottom: 25px; width: 100%; }
         #searchInput {
             width: 100%; padding: 18px 55px 18px 20px;
             border-radius: 15px; border: 2px solid #cbd5e1;
@@ -90,20 +86,19 @@
         }
         .search-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--accent); }
 
-        .term-card {
-            background: white; border-radius: 15px; margin-bottom: 12px;
-            border: 1px solid #e2e8f0; transition: 0.3s;
-        }
-        .term-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .term-title { font-weight: 800; font-size: 1.1rem; color: var(--primary); }
+        .term-card { background: white; border-radius: 15px; margin-bottom: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
+        .term-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
+        .term-header:hover { background: #f1f5f9; }
+        .term-title { font-weight: 800; font-size: 1.1rem; }
         
-        .term-content { display: none; padding: 0 20px 20px; border-top: 1px dashed #e2e8f0; }
-        .term-card.active .term-content { display: block; background: #fafafa; border-radius: 0 0 15px 15px; }
+        .term-content { display: none; padding: 20px; background: #fafafa; border-top: 1px dashed #e2e8f0; }
+        .term-card.active .term-content { display: block; }
+        .term-card.active .term-header { color: var(--accent); }
 
         .fixed-footer {
             position: fixed; bottom: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.9); color: #94a3b8;
-            text-align: center; padding: 12px; font-size: 0.85rem;
+            background: rgba(15, 23, 42, 0.95); color: #94a3b8;
+            text-align: center; padding: 12px; font-size: 0.85rem; z-index: 100;
         }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -113,7 +108,7 @@
 
     <section id="home-page" class="page active">
         <div class="hero-content">
-            <i data-lucide="shield-check" size="60" style="color: var(--accent); margin-bottom: 20px;"></i>
+            <i data-lucide="shield-check" size="64" style="color: var(--accent); margin-bottom: 20px;"></i>
             <h1>قاموس قانون الإنترنت</h1>
             <p>دولة ليبيا - وزارة الداخلية<br>جهاز المباحث الجنائية - إدارة مكافحة جرائم تقنية المعلومات</p>
             <div class="hero-btns">
@@ -131,16 +126,17 @@
                 <i data-lucide="search" class="search-icon"></i>
             </div>
             <div id="termsList"></div>
-            <center><button class="btn btn-outline" style="margin-top: 20px;" onclick="showPage('home-page')">رجوع للرئيسية</button></center>
+            <center><button class="btn btn-outline" style="margin-top: 30px;" onclick="showPage('home-page')">رجوع للرئيسية</button></center>
         </div>
     </section>
 
     <section id="contact-page" class="page">
         <div class="container" style="text-align: center; margin-top: 50px;">
-            <h2 style="margin-bottom: 30px; color: var(--primary); font-weight: 900;">قنوات التواصل الرسمي</h2>
-            <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-                <p style="margin-bottom: 15px;"><strong>البريد:</strong> س@cid.gov.ly</p>
-                <p><strong>الهاتف:</strong> 021-1234567</p>
+            <h2 style="margin-bottom: 30px; font-weight: 900;">قنوات التواصل الرسمي</h2>
+            <div style="background: white; padding: 40px; border-radius: 20px; border: 1px solid #e2e8f0;">
+                <p style="margin-bottom: 15px; font-size: 1.2rem;"><strong>البريد الإلكتروني:</strong><br>info@cid.gov.ly</p>
+                <hr style="margin: 20px 0; opacity: 0.2;">
+                <p style="font-size: 1.2rem;"><strong>رقم الهاتف:</strong><br>021-1234567</p>
             </div>
             <button class="btn btn-main" style="margin-top: 30px;" onclick="showPage('home-page')">العودة للرئيسية</button>
         </div>
@@ -152,52 +148,45 @@
 
     <script>
         const dictionaryData = [
-            { ar: "ابتكار مفتوح", en: "Open Innovation", desc: "نموذج ابتكار يعتمد على أطراف خارجية، أفراداً أو مؤسسات، في تطوير الأفكار أو المنتجات عبر تعاون مفتوح." },
-{ ar: "إبداع رقمي", en: "Digital Creativity", desc: "إنتاج أعمال أو محتوى إبداعي باستخدام أدوات وتقنيات رقمية، مثل التصميم الرقمي، المؤثرات، أو البرمجة الإبداعية." },
-{ ar: "إتاحة المعلومات", en: "Availability", desc: "أحد عناصر أمن المعلومات، ويعني ضمان بقاء البيانات أو الخدمات الرقمية قابلة للوصول والاستخدام عند الحاجة." },
-{ ar: "إثبات رقمي", en: "Digital Evidence", desc: "كل معلومة أو أثر ذو طبيعة رقمية يُستخلص من أجهزة أو نظم معلومات، ويصلح للاحتجاج به في الإجراءات القضائية وفق قواعد قبول الأدلة وسلامة المصدر." },
-{ ar: "أثر رقمي", en: "Digital Trace", desc: "بيانات أو علامات تخلّفها الأنشطة الرقمية للمستخدمين أو الأجهزة أو النظم في البيئة الرقمية ويمكن الاستدلال بها فنياً وقد تُستخدم قانونياً في التحقيق والإثبات." },
-{ ar: "اجتماعات افتراضية", en: "Virtual Meetings", desc: "اجتماعات تُعقد عن بُعد عبر منصات رقمية تتيح تواصلاً متزامناً بالصوت أو بالصوت والصورة، مع إمكانية تبادل الملفات وإدارة الجلسة رقمياً." },
-{ ar: "إخفاء الهوية", en: "Anonymity", desc: "حالة يتم فيها استخدام الوسائط الرقمية دون الكشف عن الهوية الحقيقية للمستخدم، سواء بوسائل تقنية أو قانونية." },
-{ ar: "أخلاقيات رقمية", en: "Digital Ethics", desc: "مجموعة المبادئ والمعايير الأخلاقية التي تضبط سلوك الأفراد والمؤسسات عند استخدام التقنيات الرقمية بما يشمل احترام الخصوصية والشفافية وعدم الإضرار." },
-{ ar: "أداة مراقبة النشاط", en: "Activity Monitor", desc: "أداة أو برنامج يُستخدم لتتبع أنشطة المستخدم على الجهاز أو الشبكة، مثل الشاشات المفتوحة، وضربات المفاتيح، وسجل التصفح، والتطبيقات المستخدمة، وقد يثير استخدامها مسائل قانونية تتصل بخصوصية العاملين وحدود الرقابة داخل بيئة العمل." },
-{ ar: "أدلة مقبولة قضائياً", en: "Admissible Evidence", desc: "أدلة تستوفي الشروط القانونية والإجرائية اللازمة لقبولها أمام القضاء والاحتجاج بها، بحسب قواعد الإثبات المعمول بها، ويشمل ذلك سلامة جمع الدليل، ومشروعية الحصول عليه، وإمكان التحقق من مصدره ومضمونه." },
-{ ar: "إدمان رقمي", en: "Digital Addiction", desc: "نمط استخدام مفرط أو متكرر للتقنيات الرقمية يفضي إلى آثار متعددة أغلبها سلبية ملحوظة على الأداء أو العلاقات الاجتماعية أو إدارة الوقت، مثل تراجع الإنتاجية، العزلة، أو ضعف التحكم في مدة الاستخدام." },
-{ ar: "أدوات رقمية", en: "Digital Tools", desc: "وسائل أو برامج أو أجهزة أو تطبيقات تُستخدم في إنشاء أو معالجة أو تخزين أو نقل أو تحليل البيانات في البيئة الرقمية، وقد يترتب على استخدامها آثار قانونية تتعلق بالمسؤولية أو الخصوصية أو الإثبات." },
-{ ar: "إذن الوصول", en: "Access Rights", desc: "صلاحيات تُمنح للمستخدم تمكّنه من الوصول إلى مورد رقمي معين أو استعماله، مثل ملف أو قاعدة بيانات أو خدمة، في حدود ما يقرره النظام من قراءة أو تعديل أو تنفيذ أو غير ذلك من أوجه الاستخدام." },
-{ ar: "أرشفة", en: "Archive", desc: "حفظ منظم للسجلات أو المواد الرقمية غير الجارية في وسائط مخصصة للاحتفاظ الطويل الأمد، بما يضمن إمكان الرجوع إليها والاستفادة منها عند الحاجة الإدارية أو القانونية أو القضائية." },
-{ ar: "أرشفة فردية", en: "Individual Archiving", desc: "احتفاظ الشخص أو الجهة بنسخ منظمة من البيانات أو المستندات أو الموارد ذات الصلة بنشاطه أو حقوقه أو التزاماته، بقصد الرجوع إليها في الإثبات أو التوثيق أو الدفاع عند النزاع." },
-{ ar: "أرقام تعريف ملفات الارتباط", en: "Cookie IDs", desc: "معرفات رقمية تُخزن في متصفح المستخدم ضمن ملفات تعريف الارتباط لتمييز الجلسة أو الجهاز أو تفضيلات الاستخدام، وتشبه من حيث الوظيفة الرموز الشريطية أو أرقام التعريف الإدارية التي لا معنى مباشراً لها للمستخدم لكنها ذات قيمة لمقدمي الخدمات في تجميع البيانات وقياس الاستجابة وتخصيص المحتوى، وقد تُستخدم كذلك في التتبع." },
-{ ar: "استبعاد رقمي", en: "Digital Exclusion", desc: "حرمان بعض الأفراد أو الفئات من النفاذ إلى الخدمات أو المهارات الرقمية أو الاستفادة منها، بما يترتب عليه آثار اجتماعية واقتصادية وقانونية." },
-{ ar: "استضافة", en: "Hosting", desc: "خدمة تمكّن من إتاحة موقع أو تطبيق أو محتوى رقمي عبر الإنترنت، وذلك بتخزينه على خادم متصل بالشبكة وإدارته فنياً بما يضمن الوصول إليه." },
-{ ar: "استيثاق", en: "Authentication", desc: "عملية التحقق من هوية المستخدم أو الجهة التي تطلب النفاذ إلى النظام أو البيانات أو الخدمات الرقمية قبل منحها حق الدخول أو الاستخدام، وذلك بوسائل مثل كلمات المرور أو البطاقات أو القياسات الحيوية." },
-{ ar: "إسناد الهجوم الرقمي", en: "Attribution", desc: "عملية تقنية وقانونية تهدف إلى تحديد الجهة المسؤولة عن فعل ضار وقع عبر وسائط رقمية، استناداً إلى مؤشرات تقنية وأدلة تحقيق." },
-{ ar: "إشعار أمني", en: "Advisory", desc: "إخطار معلوماتي يتضمن بياناً بثغرة أو خطر أو خلل أو إجراء تصحيحي، ويصدر غالباً بعد ظهور الواقعة أو متابعة لتنبيه سابق، من غير أن يبلغ بالضرورة درجة الاستعجال التي تميز الإنذار الأمني." },
-{ ar: "أصول رقمية", en: "Digital Assets", desc: "موجودات ذات قيمة اقتصادية أو قانونية في البيئة الرقمية، مثل قواعد البيانات، البرمجيات، الحقوق الرقمية أو الأصول المشفرة بحسب طبيعة النظام القانوني المنظم لها." },
-{ ar: "اعتماد رقمي", en: "Digital Certification", desc: "إجراء قانوني أو تقني يمنح مصادقة رسمية على هوية أو توقيع أو مستند رقمي، وفقاً لقواعد التوثيق المعتمدة." },
-{ ar: "إعلام رقمي", en: "Digital Media", desc: "إنتاج ونشر وتداول المحتوى الإعلامي عبر الوسائط والمنصات الرقمية، بما يشمل الصحافة الرقمية، الشبكات الاجتماعية، والبث عبر الإنترنت." },
-{ ar: "إفصاح رقمي", en: "Electronic Disclosure", desc: "إجراء قانوني يتم بموجبه الكشف عن بيانات أو مستندات رقمية بناءً على طلب قضائي أو التزام قانوني." },
-{ ar: "اقتصاد افتراضي", en: "Virtual Economy", desc: "نشاط اقتصادي يتم داخل بيئات رقمية أو منصات افتراضية، يتضمن تبادلاً للسلع والخدمات أو العملات الرقمية أو نقاط القيمة وفق قواعد المنصة." },
-{ ar: "ألعاب متعددة اللاعبين عبر الإنترنت", en: "Online Multiplayer Games", desc: "ألعاب رقمية تتيح تفاعل عدد كبير من المستخدمين عبر الشبكة ضمن بيئة مشتركة، وقد ترتبط بمعاملات رقمية أو اقتصاد افتراضي داخل اللعبة." },
-{ ar: "ألياف ضوئية", en: "Fiber Optics", desc: "تقنية لنقل البيانات باستخدام الضوء عبر ألياف زجاجية أو بلاستيكية بسرعة عالية." },
-{ ar: "إمكان المساءلة", en: "Accountability", desc: "قابلية تتبع نسبة الفعل أو الاستخدام الواقع على النظام أو البيانات أو الموارد الرقمية إلى مستخدم محدد، من خلال وسائل التحقق وسجلات التدقيق، بما يسمح بتتبع المسؤولية وإثباتها عند الحاجة." },
-{ ar: "أمن البيانات", en: "Data Security", desc: "مجموعة التدابير التقنية والتنظيمية التي تهدف إلى حماية البيانات من الوصول غير المصرح به أو التعديل أو الإتلاف أو الفقدان طوال دورة الحياة." },
-{ ar: "أمن الشبكات", en: "Network Security", desc: "إجراءات وتقنيات لحماية شبكات المعلومات من الاختراق أو التعطيل أو إساءة الاستخدام، بما يضمن استمرارية الخدمة وسلامة البيانات." },
-{ ar: "أمن المعلومات", en: "Information Security", desc: "نظام متكامل من السياسات والإجراءات يهدف إلى حماية سرية المعلومات وسلامتها وتوافرها داخل النظم الرقمية والمعلوماتية." },
-{ ar: "إنترنت", en: "Internet", desc: "شبكة عالمية مترابطة من شبكات الحاسوب تعتمد حزمة بروتوكولات الإنترنت (TCP/IP) لتمكين تبادل البيانات والخدمات عبر الحدود." },
-{ ar: "إنترنت الأشياء", en: "Internet of Things", desc: "شبكة من أجهزة مادية مزودة بحساسات وبرمجيات واتصال شبكي، تمكّنها من جمع البيانات وتبادلها وتنفيذ وظائف تلقائية." },
-{ ar: "إنترنت فضائي", en: "Satellite Internet", desc: "خدمة اتصال بالإنترنت تعتمد على الأقمار الصناعية لتوفير النفاذ في المناطق التي تفتقر إلى البنية الأرضية." },
-{ ar: "انتهاك البيانات", en: "Data Breach", desc: "واقعة وصول غير مصرح به إلى بيانات رقمية أو كشفها أو تسريبها، بما يشكل إخلالاً بأمن المعلومات أو الخصوصية." },
-{ ar: "إنذار أمني", en: "Alert", desc: "رسالة عاجلة تتعلق بخطر قد يهدد النظم أو البيانات أو البنية التقنية، وتستوجب تحركاً سريعاً بحسب درجة الخطورة وطبيعة التهديد." },
-{ ar: "أوراق الأنماط المتتالية", en: "Cascading Style Sheets (CSS)", desc: "لغة توصيف تتحكم في تنسيق وعرض صفحات الويب، وتعمل عادة مع HTML." },
-{ ar: "اختراق أخلاقي", en: "Ethical Hacking", desc: "نشاط تقني مشروع يهدف إلى اختبار الأنظمة أو الشبكات أو التطبيقات لكشف الثغرات ونقاط الضعف فيها بإذن من الجهة المالكة، بقصد تحسين الحماية لا الإضرار." },
-{ ar: "اختراق رقمي", en: "Cyber Intrusion", desc: "دخول غير مشروع إلى نظام أو شبكة أو خدمة رقمية أو محاولة ذلك، عبر استغلال ثغرة أو وسيلة تقنية تمكّن من النفاذ أو العبث أو التعطيل." },
-{ ar: "انتحال رقمي", en: "Digital Impersonation", desc: "اتخاذ هوية رقمية أو صفة إلكترونية لشخص آخر دون حق، بقصد التضليل أو الانتفاع أو الإضرار أو الوصول إلى بيانات أو خدمات أو مزايا." }
+            { ar: "ابتكار مفتوح", en: "Open Innovation", desc: "نموذج ابتكار يعتمد على أطراف خارجية، أفراداً أو مؤسسات، في تطوير الأفكار أو المنتجات عبر تعاون مفتوح يهدف إلى تبادل المعرفة وتسريع وتيرة التطوير." },
+            { ar: "إبداع رقمي", en: "Digital Creativity", desc: "إنتاج أعمال أو محتوى إبداعي باستخدام أدوات وتقنيات رقمية، مثل التصميم الرقمي، المؤثرات البصرية، أو البرمجة الإبداعية." },
+            { ar: "إتاحة المعلومات", en: "Availability", desc: "أحد عناصر أمن المعلومات، ويعني ضمان بقاء البيانات أو الخدمات الرقمية قابلة للوصول والاستخدام عند الحاجة إليها." },
+            { ar: "إثبات رقمي", en: "Digital Evidence", desc: "كل معلومة أو أثر ذي طبيعة رقمية يُستخلص من أجهزة أو نظم معلومات، ويصلح للاحتجاج به في الإجراءات القضائية وفق قواعد قبول الأدلة وسلامة المصدر." },
+            { ar: "أثر رقمي", en: "Digital Trace", desc: "بيانات أو علامات تخلّفها الأنشطة الرقمية للمستخدمين أو الأجهزة أو النظم ويمكن الاستدلال بها فنياً وقد تُستخدم قانونياً في التحقيق والإثبات." },
+            { ar: "اجتماعات افتراضية", en: "Virtual Meetings", desc: "اجتماعات تُعقد عن بُعد عبر منصات رقمية تتيح تواصلاً متزامناً بالصوت أو الصوت والصورة، مع إمكان تبادل الملفات وإدارة الجلسة رقمياً." },
+            { ar: "إخفاء الهوية", en: "Anonymity", desc: "حالة يتم فيها استخدام الوسائط الرقمية دون الكشف عن الهوية الحقيقية للمستخدم، سواء بوسائل تقنية أو قانونية." },
+            { ar: "أخلاقيات رقمية", en: "Digital Ethics", desc: "مجموعة المبادئ والمعايير الأخلاقية التي تضبط سلوك الأفراد والمؤسسات عند استخدام التقنيات الرقمية بما يشمل احترام الخصوصية والشفافية." },
+            { ar: "أداة مراقبة النشاط", en: "Activity Monitor", desc: "أداة أو برنامج يُستخدم لتتبع أنشطة المستخدم على الجهاز أو الشبكة، مثل الشاشات المفتوحة، وضربات المفاتيح، وسجل التصفح." },
+            { ar: "أدلة مقبولة قضائياً", en: "Admissible Evidence", desc: "أدلة تستوفي الشروط القانونية والإجرائية اللازمة لقبولها أمام القضاء والاحتجاج بها، بحسب قواعد الإثبات المعمول بها." },
+            { ar: "إدمان رقمي", en: "Digital Addiction", desc: "نمط استخدام مفرط أو متكرر للتقنيات الرقمية يفضي إلى آثار سلبية ملحوظة على الأداء أو العلاقات الاجتماعية." },
+            { ar: "أدوات رقمية", en: "Digital Tools", desc: "وسائل أو برامج أو أجهزة أو تطبيقات تُستخدم في إنشاء أو معالجة أو تخزين أو نقل أو تحليل البيانات في البيئة الرقمية." },
+            { ar: "إذن الوصول", en: "Access Rights", desc: "صلاحيات تُمنح للمستخدم تُمكّنه من الوصول إلى مورد رقمي معين أو استعماله، مثل ملف أو قاعدة بيانات أو خدمة." },
+            { ar: "أرشفة", en: "Archive", desc: "حفظ منظم للسجلات أو المواد الرقمية غير الجارية في وسائط مخصصة للاحتفاظ الطويل الأمد، بما يضمن إمكان الرجوع إليها." },
+            { ar: "أرشفة فردية", en: "Individual Archiving", desc: "احتفاظ الشخص أو الجهة بنسخ منظمة من الرسائل أو المستندات أو المواد الرقمية ذات الصلة بنشاطه أو حقوقه." },
+            { ar: "أرقام تعريف ملفات الارتباط", en: "Cookie IDs", desc: "معرفات رقمية تُخزّن في متصفح المستخدم ضمن ملفات الارتباط لتمييز الجلسة أو الجهاز أو تفضيلات الاستخدام." },
+            { ar: "استبعاد رقمي", en: "Digital Exclusion", desc: "حرمان بعض الأفراد أو الفئات من النفاذ إلى الخدمات أو المهارات الرقمية، بما يترتب عليه آثار اجتماعية واقتصادية." },
+            { ar: "استضافة", en: "Hosting", desc: "خدمة تمكّن من إتاحة موقع أو تطبيق عبر الإنترنت، بتخزينه على خادم متصل بالشبكة وإدارته فنياً." },
+            { ar: "استيثاق", en: "Authentication", desc: "عملية التحقق من هوية المستخدم أو الجهة التي تطلب النفاذ إلى النظام أو البيانات الرقمية قبل منحها حق الدخول." },
+            { ar: "إسناد الهجوم الرقمي", en: "Attribution", desc: "عملية فنية وقانونية تهدف إلى تحديد الجهة المسؤولة عن فعل ضار وقع عبر وسائط رقمية استناداً إلى مؤشرات تقنية." },
+            { ar: "إشعار أمني", en: "Advisory", desc: "إخطار معلوماتي يتضمن بياناً بثغرة أو خطر أو خلل أو إجراء تصحيحي، ويصدر غالباً لتنبيه المستخدمين." },
+            { ar: "أصول رقمية", en: "Digital Assets", desc: "موجودات ذات قيمة اقتصادية أو قانونية في البيئة الرقمية، مثل قواعد البيانات، أو البرمجيات، أو الحقوق الرقمية." },
+            { ar: "اعتماد رقمي", en: "Digital Certification", desc: "إجراء قانوني أو تقني يمنح مصادقة رسمية على هوية أو توقيع أو مستند رقمي وفقاً لقواعد التوثيق." },
+            { ar: "إعلام رقمي", en: "Digital Media", desc: "إنتاج ونشر وتداول المحتوى الإعلامي عبر الوسائط والمنصات الرقمية، بما يشمل الصحافة والشبكات الاجتماعية." },
+            { ar: "إفصاح رقمي", en: "Electronic Disclosure", desc: "إجراء قانوني يتم بموجبه الكشف عن بيانات أو مستندات رقمية بناءً على طلب قضائي أو التزام قانوني." },
+            { ar: "اقتصاد افتراضي", en: "Virtual Economy", desc: "نشاط اقتصادي يتم داخل بيئات رقمية، يتضمن تبادلاً للسلع والخدمات أو العملات الرقمية." },
+            { ar: "ألعاب متعددة اللاعبين", en: "Online Multiplayer Games", desc: "ألعاب رقمية تتيح تفاعل عدد كبير من المستخدمين عبر الشبكة، وقد ترتبط بمعاملات مالية." },
+            { ar: "ألياف ضوئية", en: "Fiber Optics", desc: "تقنية لنقل البيانات باستخدام الضوء عبر ألياف زجاجية بسرعة عالية جداً." },
+            { ar: "إمكان المساءلة", en: "Accountability", desc: "قابلية نسبة الفعل الواقع على النظام إلى مستخدم محدد من خلال وسائل التحقق وسجلات التدقيق." },
+            { ar: "أمن البيانات", en: "Data Security", desc: "مجموعة التدابير التي تهدف إلى حماية البيانات من الوصول غير المصرح به أو التعديل طوال دورة حياتها." },
+            { ar: "أمن الشبكات", en: "Network Security", desc: "إجراءات وحماية شبكات المعلومات من الاختراق أو التعطيل، بما يضمن استمرارية الخدمة." },
+            { ar: "أمن المعلومات", en: "Information Security", desc: "نظام متكامل يهدف إلى حماية سرية المعلومات وسلامتها وتوافرها داخل النظم الرقمية." },
+            { ar: "إنترنت", en: "Internet", desc: "شبكة عالمية مترابطة من شبكات الحاسوب تعتمد حزمة بروتوكولات (TCP/IP) لتمكين تبادل البيانات." }
         ];
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
         }
 
         function render(items) {
@@ -210,33 +199,25 @@
                     </div>
                     <div class="term-content">
                         <p style="color:var(--accent); font-weight:700; margin-bottom:10px;">${item.en}</p>
-                        <p style="font-size:0.95rem; line-height:1.5;">${item.desc}</p>
+                        <p style="font-size:0.95rem; line-height:1.5; color:#475569;">${item.desc}</p>
                     </div>
                 </div>
             `).join('');
             lucide.createIcons();
         }
 
-        // هذه الدالة الجديدة التي تقوم بغلق الكل وفتح المصطلح المختار فقط
         function toggleTerm(selectedCard) {
-            const allCards = document.querySelectorAll('.term-card');
-            
-            allCards.forEach(card => {
-                if (card === selectedCard) {
-                    // إذا كان الكرت هو نفسه المختار، نقوم بتبديل حالته (فتح/غلق)
-                    card.classList.toggle('active');
-                } else {
-                    // غلق أي كرت آخر مفتوح
-                    card.classList.remove('active');
-                }
-            });
+            const isActive = selectedCard.classList.contains('active');
+            document.querySelectorAll('.term-card').forEach(card => card.classList.remove('active'));
+            if (!isActive) selectedCard.classList.add('active');
         }
 
         document.getElementById('searchInput').oninput = (e) => {
             const v = e.target.value.toLowerCase();
-            render(dictionaryData.filter(i => i.ar.includes(v)));
+            render(dictionaryData.filter(i => i.ar.includes(v) || i.en.toLowerCase().includes(v)));
         };
 
+        // البدء
         render(dictionaryData);
         lucide.createIcons();
     </script>
